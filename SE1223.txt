@@ -1,0 +1,476 @@
+package tjtoolbar;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
+
+public class TJToolBar {
+    JFrame jf=new JFrame("User Interfaces");    //利用JFrame這個class 來New出一個新的物件jf;
+    JToolBar Northtoolbar = new JToolBar();          //利用JToolBar這個class 來new 出toolbar這個物件;
+    JToolBar Westtoolbar = new JToolBar();
+    JToolBar Easttoolbar = new JToolBar();
+    JToolBar Southtoolbar = new JToolBar();
+    JToolBar jtoolbar5 = new JToolBar();
+    JToolBar jtoolbar6 = new JToolBar();
+    String fnameGloble1,fnameGloble2,fnameGloble3;                         //為了存取方法中fname絕對檔案路徑而設置的字串型態全域變數;
+    JPanel panel = new JPanel();
+    JPanel panel2 = new JPanel();
+    JPanel panel3 = new JPanel();
+    JLabel imagecontainer,imagecontainer2,imagecontainer3,imagecontainer4,imagecontainer5,imagecontainer6;
+    JLabel IL1,IL2,IL3;
+    String content;
+    String talk1,talk2,talk3,talk4,talk5;
+    Point imageCorner,GP1,GP2,GP3;
+    JTextField txt1,txt2,txt3;
+    JButton btn;
+    int time=0,T=0;
+    JPanel GJP;
+    ImageIcon IM1,IM2,IM3;
+    JTextArea textarea1,textarea2,textarea3,textarea4,textarea5;
+    /*class SA{
+        SA(){
+        int K,J=1,I=0,A=1,O=1,P=1;
+        char CA1[]=new char[50];
+        char CA2[]=new char[50];
+        char CA3[]=new char[50];
+        char CA4[]=new char[50];
+        char CA5[]=new char[50];
+        String M= content;
+        while(M.charAt(I)!='。'){
+            CA1[I]=M.charAt(I);
+            I++;
+        }
+        while(M.charAt(I+J)!='。'){
+            CA2[J-1]=M.charAt(I+J);
+            J++;
+        }
+        while(M.charAt(I+J+A)!='。'){
+            CA3[A-1]=M.charAt(I+J+A);
+            A++;
+        }
+        while(M.charAt(I+J+A+O)!='。'){
+            CA4[O-1]=M.charAt(I+J+A+O);
+            O++;
+        }
+        while(M.charAt(I+J+A+O+P)!='。'){
+            CA5[P-1]=M.charAt(I+J+A+O+P);
+            P++;
+        }
+        talk1=String.valueOf(CA1);
+        talk2=String.valueOf(CA2);
+        talk3=String.valueOf(CA3);
+        talk4=String.valueOf(CA4);
+        talk5=String.valueOf(CA5);
+        //System.out.println(talk1);System.out.println(talk2);System.out.println(talk3);System.out.println(talk4);System.out.println(talk5);
+        }
+ }*/
+    public void layeractionPerformed (ActionEvent e){
+        //if(time!=0){
+            JFrame jf1 =new JFrame("確定要輸出嗎?");
+            jf1.setSize(400,400);
+            //jf1.setDefaultCloseOperation(jf1.EXIT_ON_CLOSE);
+            jf1.setVisible(true);
+            jf1.setLayout(null);
+            
+            btn = new JButton("設定完成");
+            btn.setBounds(130,20,100,50);
+            jf1.add(btn);
+            btn.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    int L=0;jf1.setVisible(false);
+                    Northtoolbar.setVisible(false);
+                    Westtoolbar.setVisible(false);
+                    Easttoolbar.setVisible(false);
+                    jf.setTitle("My Game");
+                    jf.setFocusable(true);
+                    //new SA();
+                    jf.addKeyListener(new MyKeyListener());
+                    }
+                    class MyKeyListener extends KeyAdapter{
+                        public void keyPressed(KeyEvent e){
+                            Southtoolbar.setVisible(false);
+                            JTextArea textarea1 = new JTextArea(content);
+                            //textarea1.setBackground(Color.GRAY);
+                            textarea1.setFont(new Font(" ",Font.BOLD,100));
+                            textarea1.getPreferredSize();
+                            textarea1.setEditable(false);
+                            Southtoolbar.add(textarea1);
+                            Southtoolbar.setVisible(true);
+                            /*switch(T)
+                            {
+                                case 0:
+                                    textarea1.setText(talk1);
+                                    textarea1=null;
+                                    T++;
+                                    break;
+                                case 1:
+                                    jf.setBackground(Color.BLACK);
+                                    System.out.println(talk2);
+                                    textarea1.setText(talk2);
+                                    textarea1.setEditable(false);
+                                    Southtoolbar.setVisible(true);
+                                    T++;
+                                    break;
+                                case 2:
+                                    System.out.println(talk3);
+                                    textarea1.setEditable(true);
+                                    textarea1.setText(talk3);
+                                    textarea1.setEditable(false);
+                                    Southtoolbar.setVisible(true);
+                                    T++;
+                                    break;
+                                 case 3:
+                                    System.out.println(talk4);
+                                    textarea1.setEditable(true);
+                                    textarea1.setText(talk4);
+                                    textarea1.setEditable(false);
+                                    Southtoolbar.setVisible(true);
+                                    T++;
+                                    break;
+                                case 4:
+                                    System.out.println(talk5);
+                                    textarea1.setEditable(true);
+                                    textarea1.setText(talk5);
+                                    textarea1.setEditable(false);
+                                    Southtoolbar.setVisible(true);
+                                    T++;
+                                    break;
+                            }*/
+                        }
+}
+            });
+            
+            txt1 = new JTextField("圖片一已載入");
+            txt1.setColumns(20);
+            txt1.setBounds(50,100, 200,30);
+            jf1.add(txt1);
+        
+            if((time!=1)&&(time!=0)){
+                txt2 = new JTextField("圖片二已載入");
+                txt2.setColumns(20);
+                txt2.setBounds(50,150, 200,30);
+                jf1.add(txt2);
+            }
+            if((time!=1)&&(time!=2)&&(time!=0)){
+                txt3 = new JTextField("圖片三已載入");
+                txt3.setColumns(20);
+                txt3.setBounds(50,200, 200,30);
+                jf1.add(txt3);
+            }
+        //}
+        }
+    TJToolBar(){  
+        
+        String path1 = "C:" + File.separator + "Users"+ File.separator+"User"+ File.separator +"Desktop"+ File.separator+"java"+ File.separator+"1.PNG";
+        Icon icon1 = new ImageIcon(path1);
+        //String 宣告path1然後檔案位置，new 出一個新的imageIcon讓他的建構函式接收path1
+      
+        String path2 = "C:" + File.separator + "Users"+ File.separator+"User"+ File.separator +"Desktop"+ File.separator+"java"+ File.separator+"2.PNG";
+        Icon icon2 = new ImageIcon(path2);
+        
+        String path3 = "C:" + File.separator + "Users"+ File.separator+"User"+ File.separator +"Desktop"+ File.separator+"java"+ File.separator+"3.PNG";
+        Icon icon3 = new ImageIcon(path3);
+        
+        String path4 = "C:" + File.separator + "Users"+ File.separator+"User"+ File.separator +"Desktop"+ File.separator+"java"+ File.separator+"4.PNG";
+        Icon icon4 = new ImageIcon(path4);
+        
+        String path5 = "C:" + File.separator + "Users"+ File.separator+"User"+ File.separator +"Desktop"+ File.separator+"java"+ File.separator+"5.PNG";
+        Icon icon5 = new ImageIcon(path5);
+        
+        String path6 = "C:" + File.separator + "Users"+ File.separator+"User"+ File.separator +"Desktop"+ File.separator+"java"+ File.separator+"6.PNG";
+        Icon icon6 = new ImageIcon(path6);
+        
+        String path7 = "C:" + File.separator + "Users"+ File.separator+"User"+ File.separator +"Desktop"+ File.separator+"java"+ File.separator+"7.PNG";
+        Icon icon7 = new ImageIcon(path7);
+        
+        
+        JButton File = new JButton(icon1);
+        JButton Last = new JButton(icon2);
+        JButton Next = new JButton(icon3);
+        JButton TCan = new JButton(icon4);
+        
+        
+        JButton greenPlus = new JButton(icon5);
+        JButton lastButton = new JButton(icon6);
+        JLabel  mytoolbar = new JLabel ("工具列");
+        
+        Northtoolbar.add(File);
+        Northtoolbar.add(Last);
+        Northtoolbar.add(Next);
+        Northtoolbar.add(TCan);
+        Northtoolbar.add(greenPlus);
+        Northtoolbar.add(lastButton);
+        Northtoolbar.add(mytoolbar);
+        
+        Westtoolbar.setLayout(null);
+        Westtoolbar.setLayout(new GridLayout(4,1,1,10));
+        JButton OptionButton = new JButton("文本預覽");
+        Westtoolbar.add(OptionButton);
+        
+        OptionButton.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    JFrame jf2 =new JFrame("文本預覽");
+                    jf2.setSize(500,400);
+                    jf2.setVisible(true);
+                    //jf2.setLayout(null);
+                    JTextArea TT2 = new JTextArea();
+                    TT2.setBackground(Color.RED);
+                    TT2.setFont(new Font(" ",Font.BOLD,11));
+                    TT2.getPreferredSize();
+                    TT2.setText(content);
+                    //panel3.add(TT2);
+                    jf2.add(TT2);
+                }
+            });
+        
+        JButton textbox =  new JButton("載入文本");
+        Westtoolbar.add(textbox);
+        textbox.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                Path path = Paths.get("C:\\Users\\User\\Desktop\\javatest.txt");
+                try (Stream<String> lines = Files.lines(path)) {
+                    content = lines.collect(Collectors.joining(System.lineSeparator()));
+                    System.out.println(content);
+                    
+                } catch (IOException ex) {
+                    Logger.getLogger(TJToolBar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        });
+        
+        JButton newImage = new JButton(icon7);
+        Westtoolbar.add(newImage);
+        
+        JLabel mytoolbar2 = new JLabel("工具欄");
+        Westtoolbar.add(mytoolbar2);
+        
+        Easttoolbar.setLayout(null);
+        Easttoolbar.setLayout(new GridLayout(3,1,0,50));
+        
+        JButton layer = new JButton("輸出");
+        Easttoolbar.add(layer);
+        
+        TCan.addActionListener(new ActionListener(){
+        public void actionPerformed (ActionEvent e){
+            imagecontainer.setVisible(false);
+            imagecontainer2.setVisible(false);
+            imagecontainer3.setVisible(false);
+            time=0;
+            }
+        });
+        
+        
+        layer.addActionListener(new ActionListener(){
+        public void actionPerformed (ActionEvent e){
+            layeractionPerformed(e);
+            }
+        });
+        
+        JLabel nofunction1 = new JLabel(" ");
+        Easttoolbar.add(nofunction1);
+        
+        JLabel nofunction2 = new JLabel(" ");
+        Easttoolbar.add(nofunction2);
+        
+        imagecontainer = new JLabel();
+        imagecontainer2 = new JLabel();
+        imagecontainer3 = new JLabel();
+        
+        imagecontainer.addMouseMotionListener(new MouseMotionAdapter()
+        {
+            public void mouseDragged(MouseEvent e) { 
+            Point currentPt = e.getPoint();
+            PointerInfo pi = MouseInfo.getPointerInfo();    //抓滑鼠位置
+            Point Wpoint = pi.getLocation();            //把滑鼠位置給Wpoint變數
+            int x= (int)Wpoint.getX();                  //抓Wpoint變數的X、Y座標並強制轉型成整數
+            int y= (int)Wpoint.getY();
+            TJToolBar.this.imagecontainer.setLocation(x-100,y-100);      //實現拖曳
+            System.out.println(e.toString());
+            }
+        });
+        imagecontainer2.addMouseMotionListener(new MouseMotionAdapter()
+        {
+            public void mouseDragged(MouseEvent e) { 
+            Point currentPt = e.getPoint();
+            PointerInfo pi = MouseInfo.getPointerInfo();    //抓滑鼠位置
+            Point Wpoint = pi.getLocation();            //把滑鼠位置給Wpoint變數
+            int x= (int)Wpoint.getX();                  //抓Wpoint變數的X、Y座標並強制轉型成整數
+            int y= (int)Wpoint.getY();
+            TJToolBar.this.imagecontainer2.setLocation(x-100,y-100);      //實現拖曳
+            System.out.println(e.toString());
+            }
+        });
+        imagecontainer3.addMouseMotionListener(new MouseMotionAdapter()
+        {
+            public void mouseDragged(MouseEvent e) { 
+            Point currentPt = e.getPoint();
+            PointerInfo pi = MouseInfo.getPointerInfo();    //抓滑鼠位置
+            Point Wpoint = pi.getLocation();            //把滑鼠位置給Wpoint變數
+            int x= (int)Wpoint.getX();                  //抓Wpoint變數的X、Y座標並強制轉型成整數
+            int y= (int)Wpoint.getY();
+            TJToolBar.this.imagecontainer3.setLocation(x-100,y-100);      //實現拖曳
+            System.out.println(e.toString());
+            }
+        });
+
+
+
+
+
+        //做為新增圖片的container
+        panel.add(imagecontainer);
+        panel.add(imagecontainer2);
+        panel.add(imagecontainer3);
+        
+        //JLabel talkwatch = new JLabel(content);
+        //talkwatch.setBounds(0,0,100,100);
+        JTextArea textarea1 = new JTextArea();
+        //textarea1.setBackground(Color.GRAY);
+        textarea1.setFont(new Font(" ",Font.BOLD,100));
+        textarea1.getPreferredSize();
+        textarea1.setEditable(false);
+        Southtoolbar.add(textarea1);
+        
+        /*JButton tool11 = new JButton("插入背景");
+        jtoolbar5.add(tool11);*/
+        
+        jf.add(Northtoolbar,BorderLayout.NORTH);
+        jf.add(Westtoolbar,BorderLayout.WEST);
+        jf.add(Easttoolbar,BorderLayout.EAST);
+        jf.add(Southtoolbar,BorderLayout.SOUTH);
+        jf.add(panel,BorderLayout.CENTER);
+        
+        //tool9要先存在編譯才會過，所以放在這裡
+        class FileChooser extends JFrame implements ActionListener {     
+            int i = 0;   
+            JPanel imgPane;      
+            public FileChooser() {   
+                greenPlus.addActionListener(this);
+                newImage.addActionListener(this);  //讓newImage這個按鈕觸發事件 
+                imgPane = new JPanel();   
+            }   
+       
+    public void actionPerformed(ActionEvent e) {   
+        if((e.getSource()==newImage)||(e.getSource()==greenPlus)) {   
+            JFileChooser chooseFile = new JFileChooser();       
+            int returnVal = chooseFile.showOpenDialog(null);   
+            
+            if(returnVal == chooseFile.APPROVE_OPTION) {     
+            i++;   
+            File f = chooseFile.getSelectedFile();   //檔案類別F
+            String fname = f.getAbsolutePath();         //取得f的檔案路徑丟進字串fname
+            //System.out.println(fname);
+            //fnameGloble1 = fname;
+            if(time==0){
+                ImageIcon image1 = new ImageIcon(fname);
+                //ImageIcon IM1 = new ImageIcon(fname);
+                fnameGloble1=fname;                     //讓String全域變數取得檔案路徑fname
+                imagecontainer.setIcon(image1);
+                //imagecontainer.setHorizontalAlignment(JLabel.CENTER);
+                imagecontainer.setVisible(true);
+                GP1=imagecontainer.getLocation();       //讓Point的全域變數GP1取得圖片的位置
+            }
+            else if(time==1){
+                //ImageIcon IM2 = new ImageIcon(fname);
+                //fnameGloble2=fname;
+                imagecontainer2.setIcon(new ImageIcon(fname));
+                //imagecontainer2.setHorizontalAlignment(JLabel.CENTER);
+                imagecontainer2.setVisible(true);
+                //GP2=imagecontainer2.getLocation();
+            }
+            else if(time==2){
+                //ImageIcon IM3 = new ImageIcon(fname);
+                fnameGloble3=fname;
+                imagecontainer3.setIcon(new ImageIcon(fname));
+                //imagecontainer3.setHorizontalAlignment(JLabel.CENTER);
+                imagecontainer3.setVisible(true);
+                GP3=imagecontainer3.getLocation();
+            }
+            imgPane.add(imagecontainer,BorderLayout.CENTER);
+            imgPane.add(imagecontainer2,BorderLayout.CENTER);
+            imgPane.add(imagecontainer3,BorderLayout.CENTER);
+            jf.add(imgPane,BorderLayout.CENTER);
+            time++;
+            }   
+        }   
+    }   
+}      
+        class DragPanel extends JPanel{         //繼承自JPnel的類別DragPanel
+ 
+        //ImageIcon image = new ImageIcon(fnameGloble);
+        //int WIDTH = image.getIconWidth();
+        //int HEIGHT = image.getIconHeight();
+        Point prevPt;
+ 
+        DragPanel(){  
+            imageCorner = new Point(350,250);
+            ClickListener clickListener = new ClickListener();
+            DragListener dragListener = new DragListener();
+            this.addMouseListener(clickListener);
+            this.addMouseMotionListener(dragListener);
+        }
+ 
+        /*public void paintComponent(Graphics g) {
+            //System.out.println(fnameGloble);
+            super.paintComponent(g);
+            image.paintIcon(this, g, (int)imageCorner.getX(), (int)imageCorner.getY());
+ }*/
+ 
+        class ClickListener extends MouseAdapter{
+            public void mousePressed(MouseEvent e) {
+                //System.out.print(imageCorner);
+                prevPt = e.getPoint();
+    }
+}
+ 
+        class DragListener extends MouseMotionAdapter{
+            public void mouseDragged(MouseEvent e) { 
+            Point currentPt = e.getPoint();        
+            //System.out.println(e.toString());
+            imageCorner.translate(     
+            (int)(currentPt.getX() - prevPt.getX()),
+            (int)(currentPt.getY() - prevPt.getY())
+        );
+        prevPt = currentPt;
+        repaint();   
+    }  
+   }
+}  
+        DragPanel dragPanel = new DragPanel();      //new出一個DragPanel類別的物件dragPanel
+          
+        FileChooser fc = new FileChooser();         //new出FileChooser類別的物件fc
+        
+        jf.add(dragPanel);                          //利用container的物件jf來呼叫add函式並傳入dragPanel作為引數
+        
+        jf.add(panel);
+        
+        jf.setPreferredSize(new Dimension(700, 500));
+        jf.pack();
+        jf.setBackground(Color.black);
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setVisible(true);
+        
+    };
+    public static void main(String[] args){
+        new TJToolBar();
+    }
+}
